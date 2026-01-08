@@ -1,0 +1,73 @@
+﻿@model LearnX.Models.Student
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<section >
+    <div class="container-fluid mt-lg-5 shadow-lg py-lg-5">
+        <form asp-action="Register" class="h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="d-flex justify-content-center mb-4">
+                    <h4>Register</h4>
+                </div>
+                <!-- Column 1: Image -->
+                <div class="col-md-4 col-lg-4 col-xl-4 text-center">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                         class="img-fluid" alt="Sample image">
+                </div>
+                
+                <!-- Column 2: Personal Details -->
+                <div class="col-md-4 col-lg-4 col-xl-3 px-4">
+                    
+
+                    <div class="form-outline mb-3">
+                        <label asp-for="StudentName" class="form-label">Name</label>
+                        <input asp-for="StudentName" type="text" class="form-control form-control-lg" placeholder="Student Name" />
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <label asp-for="StudentEmail" class="form-label">Email</label>
+                        <input asp-for="StudentEmail" type="email" class="form-control form-control-lg" placeholder="Personal email" />
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <label asp-for="StudentPhone" class="form-label">Phone</label>
+                        <input asp-for="StudentPhone" type="tel" class="form-control form-control-lg" placeholder="Phone number" />
+                    </div>
+                </div>
+
+                <!-- Column 3: Security & Submission -->
+                <div class="col-md-4 col-lg-4 col-xl-3 px-4">
+                    <div class="form-outline mb-3">
+                        <label asp-for="StudentPassword" class="form-label">Password</label>
+                        <input asp-for="StudentPassword" type="password" class="form-control form-control-lg" placeholder="Password" />
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <label asp-for="StudentConfirmPassword" class="form-label">Confirm Password</label>
+                        <input asp-for="StudentConfirmPassword" type="password" class="form-control form-control-lg" placeholder="Confirm password" />
+                        <span class="text-danger small">@ViewBag.PasswordNotMatched</span>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <input type="submit" value="Register" class="btn btn-primary btn-lg w-100" />
+                        <p class="small fw-bold mt-3 mb-0">
+                            Already registered? <a asp-action="Login" class="link-danger">Login here!</a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

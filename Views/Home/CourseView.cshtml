@@ -1,0 +1,150 @@
+﻿@model LearnX.Models.CourseFeedbackViewModel
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = Model.CourseData.CourseName;
+    
+}
+@if (TempData["FeedbackSubmitted"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 mb-4" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+            <div>
+                <strong>Success!</strong> @TempData["FeedbackSubmitted"]
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 mb-4" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-exclamation-circle-fill text-danger me-2 fs-5"></i>
+            <div>
+                <strong>Error!</strong> @TempData["Error"]
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Hero Header Section -->
+<div class="container-fluid bg-dark text-white py-5 mb-5 rounded shadow">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index" class="text-info text-decoration-none">Courses</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">@Model.CourseData.CourseName</li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 fw-bold">@Model.CourseData.CourseName</h1>
+                <p class="lead">Master the essentials of @Model.CourseData.CourseName with our comprehensive guide.</p>
+                <div class="d-flex gap-3 mt-4">
+                    <span class="badge bg-primary px-3 py-2">@Model.CourseData.CourseDifficulty</span>
+                    <span class="badge bg-warning text-dark px-3 py-2"><i class="bi bi-clock"></i> @Model.CourseData.CourseDuration Hours</span>
+                    <span class="badge bg-info px-3 py-2"><i class="bi bi-star-fill"></i> @Model.CourseData.CourseRating Rating</span>
+                </div>
+            </div>
+            <div class="col-lg-4 d-none d-lg-flex align-items-center justify-content-center">
+                <!-- Clean Icon Container -->
+                <div class="p-4 rounded-4 text-center" style="max-width: 200px;">
+                    <img src="@Model.CourseData.CourseImageURL"
+                         class="img-fluid"
+                         style="height: 120px; width: 120px; object-fit: contain;"
+                         alt="@Model.CourseData.CourseName">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-5">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <section class="mb-5">
+                <h3 class="fw-bold mb-3 border-bottom pb-2">Course Overview</h3>
+                <p class="text-muted fs-6">@Model.CourseData.CourseOverview</p>
+            </section>
+
+            <!-- Syllabus / Topics -->
+            <section class="mb-5">
+                <h3 class="fw-bold mb-3">Curriculum</h3>
+                <div class="accordion shadow-sm" id="courseSyllabus">
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#topic1">
+                                @Model.CourseData.CourseName
+                            </button>
+                        </h2>
+                        <div id="topic1" class="accordion-collapse collapse show" data-bs-parent="#courseSyllabus">
+                            <div class="accordion-body">
+                                <dl class="row mb-1">
+                                    <dt class="col-sm-3 text-primary">Notes</dt>
+                                    <dd class="col-sm-9">
+                                        <a href="@Model.CourseData.NotesLink" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i> Download PDF</a>
+                                    </dd>
+                                </dl>
+
+                                <!-- Responsive YouTube Embed -->
+                                <div class="mt-1">
+                                    <label class="fw-bold mb-2 text-primary">Video Playlist</label>
+                                    <div class="ratio ratio-16x9 rounded-3 overflow-hidden shadow-sm">
+                                        <iframe src="@Model.CourseData.YoutubeLink"
+                                                title="YouTube video player"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                allowfullscreen></iframe>
+                                    </div>
+                                    <p class="small text-muted mt-2 px-1">
+                                        <i class="bi bi-info-circle"></i> Click the menu icon in the top right of the video to view all playlist items.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Feedback Section -->
+            <partial name="_feedback" model="Model" />
+
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="sticky-top" style="top: 2rem;">
+                <div class="card border-2 shadow-sm p-3 mb-5 rounded-4 overflow-hidden">
+                    <div class="card-body p-4 text-center">
+                        <h5 class="fw-bold">Start Learning Today</h5>
+                        <p class="text-muted">Join over @Model.CourseData.EnrolledStudentsCount students in this course.</p>
+           
+
+                        <a asp-action="Index" class="btn btn-outline-secondary w-100">
+                            <i class="bi bi-arrow-left"></i> Back to Courses
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-4 border-2 shadow-sm p-3 mb-5 rounded-4 text-center overflow-hidden" style="background-color:khaki">
+                    <h6>Course Features</h6>
+                    <ul class="list-unstyled text-start small mt-3">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i> Lifetime Access</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i> Certificate of Completion</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i> Direct Support from Mentors</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Optional: Add smooth scroll or rating logic here -->
+}

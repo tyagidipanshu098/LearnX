@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Text.Json
+@model IEnumerable<LearnX.Models.Course>
+@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+    var message = TempData["LoggedIn"];
+}
+
+@if (message != null)
+{
+    <div class="alert alert-success d-flex align-items-lg-stretch alert-dismissible fade show" role="alert">
+        <svg xmlns="www.w3.org" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </svg>
+        <div>
+            @message
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+<div class="mb-3">
+    <h3>
+        Courses
+    </h3>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 rounded-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <!-- Removed manual style="box-shadow: 10px" (invalid) and added .shadow-sm -->
+            <div class="card border-0 shadow-sm rounded-4 d-flex justify-content-center align-items-center" style="background-color: khaki; height: 260px">
+                <div class="w-75 text-center p-4 shadow-sm rounded-4" style=" background-color: white; height: 220px">
+                    <!-- Icon Container: Using a soft background and rounded corners -->
+                    <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-2 border"
+                         style="width: 80px; height: 80px;">
+                        <img src="@item.CourseImageURL"
+                             class="img-fluid"
+                             style="width: 40px; height: 40px; object-fit: contain;"
+                             alt="@item.CourseName Icon">
+                    </div>
+
+                    <h5 class="card-title fw-bold mb-2">@item.CourseName</h5>
+
+                    <!-- Truncate description to keep cards uniform height -->
+                    <p class="card-text text-muted small px-2 mb-2 text-truncate-2">
+                        @item.CourseDescription
+                    </p>
+                    <div class="d-flex align-items-center gap-2 justify-content-center mt-1">
+                        <a asp-action="CourseView" asp-route-id="@item.CourseId" class="btn btn-primary btn-sm rounded-pill px-4 shadow-sm fw-600">
+                            View Course
+                        </a>
+
+                        @{
+                            // Check if item is already in cart
+                            var cartJson = Context.Session.GetString("Cart");
+                            var isInCart = !string.IsNullOrEmpty(cartJson) &&
+                            JsonSerializer.Deserialize<List<CartItem>>(cartJson).Any(c => c.Course.CourseId == item.CourseId);
+                        }
+
+                        @if (isInCart)
+                        {
+                            <!-- REMOVE Button: Becomes a red 'X' or 'Check' that removes on click -->
+                            <a asp-action="RemoveFromCart" asp-route-id="@item.CourseId" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm">
+                                <i class="bi bi-cart-x"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <!-- ADD Button: Original behavior -->
+                            <form asp-action="AddToCart" method="post" class="m-0">
+                                <input type="hidden" name="id" value="@item.CourseId" />
+                                <button type="submit" class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm">
+                                    +<i class="bi bi-cart"></i>
+                                </button>
+                            </form>
+                        }
+                    </div>
+
+
+                    
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

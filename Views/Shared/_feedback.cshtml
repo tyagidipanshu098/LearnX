@@ -1,0 +1,19 @@
+﻿@model LearnX.Models.CourseFeedbackViewModel
+
+
+
+<section class="bg-light p-4 rounded-5 shadow-sm border">
+    <h4 class="fw-bold mb-3">Leave a Review</h4>
+    <form asp-action="Feedback" asp-controller="Home" method="post">
+        <!-- Hidden field to link feedback to the specific course -->
+        <input type="hidden" asp-for="CourseData.CourseId" />
+        <input type="hidden" asp-for="CourseData.CourseName" />
+        <div class="mb-3">
+            <textarea class="form-control rounded-3" asp-for="FeedbackData.UserFeedback" rows="3"
+                      placeholder="What did you think of the course content?"></textarea>
+            <span asp-validation-for="FeedbackData.UserFeedback" class="text-danger small"></span>
+        </div>
+       
+        <button type="submit" class="btn btn-dark w-100 rounded-pill py-2">Submit Feedback</button>
+    </form>
+</section>

@@ -1,0 +1,112 @@
+﻿@model List<LearnX.Models.CartItem>
+
+<div class="container py-3">
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="container mb-3">
+            <div class="text-center position-relative">
+                <h2 class="fw-bold mb-3">Your Cart</h2>
+                <!-- Decorative underline -->
+                <div class="bg-primary rounded-pill mx-auto" style="width: 50px; height: 4px;"></div>
+            </div>
+        </div>
+
+        <div class="text-center py-3 rounded-5 glass-card shadow-lg border-0">
+            <div class="display-1 text-primary opacity-25 mb-4">
+                <i class="bi bi-cart-dash-fill"></i>
+            </div>
+            <h3 class="fw-bold">Your cart is empty</h3>
+            <p class="text-muted">Explore our latest .NET and C# courses to get started.</p>
+            <a asp-action="Index" class="btn btn-primary rounded-pill px-5 py-3 mt-3 mb-3 shadow-lg hover-lift">
+                Browse Courses
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="container mb-3">
+            <div class="text-center position-relative">
+                <h2 class="fw-bold mb-3">Your Cart</h2>
+                <!-- Decorative underline -->
+                <div class="bg-primary rounded-pill mx-auto" style="width: 50px; height: 4px;"></div>
+            </div>
+        </div>
+       
+        <div class="row g-5">
+            <!-- Left: Items -->
+            <div class="col-lg-8">
+                <h4 class="fw-bold mb-3">Items in Cart (@Model.Count)</h4>
+                <div class="glass-card rounded-5 p-4 shadow-lg border-0">
+                    @foreach (var item in Model)
+                    {
+                        <div class="cart-item-row d-flex align-items-center mb-4 pb-4 border-bottom">
+                            <div class="flex-shrink-0 me-4">
+                                <div class="bg-light p-3 rounded-4 shadow-sm">
+                                    <img src="@item.Course.CourseImageURL" style="width: 60px; height: 60px; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fw-bold mb-1">@item.Course.CourseName</h5>
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="badge bg-soft-primary text-primary border-0 rounded-pill px-3">@item.Course.CourseDifficulty</span>
+                                    <span class="text-muted small"><i class="bi bi-play-circle me-1"></i> @item.Course.CourseDuration hrs</span>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="h6 fw-bold mb-2 text-primary">FREE</div>
+                                <a asp-action="RemoveFromCart" asp-route-id="@item.Course.CourseId" class="btn btn-link text-danger p-0 text-decoration-none small">
+                                    <i class="bi bi-trash3 me-1"></i> Remove
+                                </a>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="mt-4">
+                        <a asp-action="Index" class="text-primary text-decoration-none fw-bold small">
+                            <i class="bi bi-arrow-left me-2"></i> Keep Browsing
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Order Summary -->
+            <div class="col-lg-4">
+                <div class="sticky-top" style="top: 2rem;">
+                    <div class="card border-0 rounded-5 shadow-lg overflow-hidden">
+                        <div class="card-body p-4 p-xl-5">
+                            <h4 class="fw-bold mb-4">Summary</h4>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted">Subtotal</span>
+                                <span class="fw-bold text-decoration-line-through text-muted">$199.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted">Promotion</span>
+                                <span class="text-success fw-bold">-$199.00</span>
+                            </div>
+                            <div class="p-3 bg-light rounded-4 my-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 fw-bold mb-0">Total</span>
+                                    <span class="h1 fw-black text-primary mb-0">$0</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-sm w-100 rounded-pill py-3 shadow hover-lift fw-bold mb-3">
+                                Checkout Now <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-sm w-100 rounded-pill py-3 shadow hover-lift fw-bold">
+                                <i class="bi bi-arrow-left me-2"></i> Back to courses
+                            </a>
+
+
+                            <div class="mt-4 d-flex align-items-center justify-content-center gap-3 opacity-75">
+                                <i class="bi bi-shield-check fs-4"></i>
+                                <span class="small text-muted">Secured Enrollment</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

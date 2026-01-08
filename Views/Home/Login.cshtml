@@ -1,0 +1,113 @@
+﻿@model LearnX.Models.Student
+
+@{
+    ViewData["Title"] = "Login";
+}
+@{
+    if (TempData["Registered"] != null)
+    {
+        <div class="alert alert-success d-flex align-items-lg-stretch alert-dismissible fade show" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg>
+            <div>
+                @TempData["Registered"]
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    if (TempData["LoggedOut"] != null)
+    {
+        <div class="alert alert-success d-flex align-items-lg-stretch alert-dismissible fade show" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg>
+            <div>
+                @TempData["LoggedOut"]
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    if (TempData["PasswordUpdate"] != null)
+    {
+        <div class="alert alert-success d-flex align-items-lg-stretch alert-dismissible fade show" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg>
+            <div>
+                @TempData["PasswordUpdate"]
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
+
+<section>
+    <div class="container-fluid h-custom shadow-lg pb-5 mt-xxl-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <div class="d-flex justify-content-center pt-lg-5">
+                    <h4>Login</h4>
+                </div>
+                <form asp-action="Login">
+
+
+                    <div data-mdb-input-init class="form-outline mb-3">
+                        <label asp-for="StudentName" class="form-label">Name</label>
+                        <input asp-for="StudentName" type="text" id="form3Example3" class="form-control form-control-lg"
+                               placeholder="Student Name" />
+                    </div>
+
+                
+
+
+                    <div data-mdb-input-init class="form-outline mb-3">
+                        <label asp-for="StudentPassword" class="form-label">Password</label>
+                        <input asp-for="StudentPassword" type="password" id="form3Example4" class="form-control form-control-lg"
+                               placeholder="Password" />
+
+                        @if (ViewBag.Message != null)
+                        {
+                            <span class="text-danger">@ViewBag.Message</span>
+                        }
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="form-check mb-0">
+                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                            <label class="form-check-label" for="form2Example3">
+                                Remember me
+                            </label>
+                        </div>
+                        <a asp-action="Forget" class="text-primary">Forgot password?</a>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <input type="hidden" name="CourseId" value="@ViewBag.CourseId" />
+                        <input type="submit" value="Login" class="btn btn-primary" />
+
+                        <p class="small fw-bold mt-2 pt-1 mb-0">
+                            Don't have an account? <a asp-action="Register"
+                                                      class="link-danger">Register</a>
+                        </p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
