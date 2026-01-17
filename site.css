@@ -1,0 +1,111 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* Modern Hover Transition */
+.transition-hover {
+    transition: all 0.2s ease-in-out;
+}
+
+
+/* Helper to keep descriptions to exactly 2 lines */
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Glassmorphism Card Effect */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Rounded-5 utility for 2026 look */
+.rounded-5 {
+    border-radius: 2rem !important;
+}
+
+/* Interactive Hover States */
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,0.175) !important;
+    }
+
+/* Custom Soft Badges */
+.bg-soft-primary {
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+/* Black text weight for 2026 headings */
+.fw-black {
+    font-weight: 900;
+}
+
+.cart-item-row:last-child {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+
+/* Soft UI Background and Accents */
+.bg-soft-success {
+    background-color: rgba(25, 135, 84, 0.1);
+}
+
+/* Rounded Utility */
+.rounded-5 {
+    border-radius: 1.5rem !important;
+}
+
+.rounded-4 {
+    border-radius: 1rem !important;
+}
+
+/* Dashboard Sidebar Styling */
+.list-group-item-action.active {
+    background-color: var(--bs-primary) !important;
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
+}
+
+/* Form Inputs */
+.form-control:focus {
+    background-color: #fff !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.05);
+    border: none;
+}
+
+/* Interaction */
+.hover-lift {
+    transition: transform 0.2s;
+}
+
+    .hover-lift:hover {
+        transform: translateY(-3px);
+    }
